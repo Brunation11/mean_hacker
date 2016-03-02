@@ -17,4 +17,14 @@ var CommentSchema = new Schema({
   }
 });
 
+CommentSchema.methods.upvote = function(cb) {
+  this.upvotes++;
+  this.save(cb);
+};
+
+CommentSchema.methods.downvote = function(cb) {
+  this.upvotes--;
+  this.save(cb);
+};
+
 mongoose.model('Comment', CommentSchema);
