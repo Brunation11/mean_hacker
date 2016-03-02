@@ -20,4 +20,14 @@ var PostSchema = new Schema({
   ]
 });
 
-mongoose.model('Post', PostSchema);
+PostSchema.methods.upvote = function(cb) {
+  this.upvotes++;
+  this.save(cb);
+};
+
+PostSchema.methods.downvote = function(cb) {
+  this.upvotes--;
+  this.save(cb);
+};
+
+module.exports = mongoose.model('Post', PostSchema);
