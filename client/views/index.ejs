@@ -26,7 +26,8 @@
       {{ post.upvotes }}
       <a ng-show="post.link" href={{ post.link }}>{{ post.title }}</a>
       <span ng-hide="post.link">{{ post.title }}</span>
-      <a href="#/posts/{{ $index }}">Comments</a>
+      <a href="#/posts/{{ post._id }}">Comments</a>
+      <button ng-click="removePost(post)" class="btn btn-primary">Delete</button>
     </div>
 
     <form ng-submit="addPost()" style="margin-top:30px;">

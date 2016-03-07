@@ -43,6 +43,16 @@ exports.getOne = function(req, res) {
   res.json(req.post);
 };
 
+exports.delete = function(req, res, next) {
+  req.post.remove(function(err, post) {
+    if (err) {
+      next(err);
+    } else {
+      res.json(post);
+    }
+  });
+};
+
 exports.upvote = function(req, res, next) {
   req.post.upvote(function(err, post) {
     if (err) {
