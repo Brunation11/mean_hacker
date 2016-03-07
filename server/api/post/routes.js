@@ -9,7 +9,8 @@ router.route('/')
   .post(controller.post);
 
 router.route('/:post')
-  .get(controller.getOne);
+  .get(controller.getOne)
+  .delete((controller.delete));
 
 router.put('/:post/upvote', controller.upvote);
 router.put('/:post/downvote', controller.downvote);
