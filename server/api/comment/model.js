@@ -6,14 +6,14 @@ var CommentSchema = new Schema({
     type: String,
     required: true
   },
-  author: String,
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   upvotes: {
     type: Number,
     default: 0
-  },
-  post: {
-    type: Schema.Types.ObjectId,
-    ref: 'Post'
   }
 });
 
@@ -27,4 +27,4 @@ CommentSchema.methods.downvote = function(cb) {
   this.save(cb);
 };
 
-mongoose.model('Comment', CommentSchema);
+module.exports = mongoose.model('Comment', CommentSchema);
