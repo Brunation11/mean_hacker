@@ -9,6 +9,7 @@ exports.params = function(req, res, next, id) {
       next(new Error('Comment not found'));
     } else {
       req.comment = comment;
+      next();
     }
   });
 };
@@ -16,13 +17,13 @@ exports.params = function(req, res, next, id) {
 
 exports.post = function(req, res, next) {
   var comment = new CommentModel(req.body);
-  comment.post = req.post;
+  comment.author = req.payload._id;
   comment.save(function(err, comment) {
     if (err) {
       next(err);
     } else {
       req.post.comments.push(comment);
-      req.post.save(function(err, res) {
+      req.post.save(function(err, post) {
         if (err) {
           next(err);
         } else {
