@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var controller = require('./controller');
+var auth = require('../user/auth').auth();
 
 router.param('comment', controller.params);
 
-router.post('/', controller.post);
-router.put('/:comment/upvote', controller.upvote);
-router.put('/:comment/downvote', controller.downvote);
+router.post('/', auth, controller.post);
+router.put('/:comment/upvote', auth, controller.upvote);
+router.put('/:comment/downvote', auth, controller.downvote);
 
 module.exports = router;
