@@ -9,6 +9,15 @@
   </head>
   <body>
 
+    <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
+      <ul class="nav navbar-nav">
+        <li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li>
+        <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
+        <li ng-hide="isLoggedIn()"><a href="/#/login">Log In</a></li>
+        <li ng-hide="isLoggedIn()"><a href="/#/register">Register</a></li>
+      </ul>
+    </nav>
+
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <ui-view></ui-view>
@@ -21,16 +30,21 @@
     </div>
 
     <div ng-repeat="post in posts | orderBy:'-upvotes'">
-      <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(post)"></span>
-      <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(post)"></span>
+      <span class="glyphicon glyphicon-thumbs-up" ng-click="upvotePost(post)"></span>
+      <span class="glyphicon glyphicon-thumbs-down" ng-click="downvotePost(post)"></span>
       {{ post.upvotes }}
       <a ng-show="post.link" href={{ post.link }}>{{ post.title }}</a>
+      <span ng-show="post.author">Posted by <a>{{ post.author.username }}</a></span>
       <span ng-hide="post.link">{{ post.title }}</span>
       <a href="#/posts/{{ post._id }}">Comments</a>
       <button ng-click="removePost(post)" class="btn btn-primary">Delete</button>
     </div>
 
-    <form ng-submit="addPost()" style="margin-top:30px;">
+    <div ng-hide="isLoggedIn()">
+      <h3><a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to start posting.</h3>
+    </div>
+
+    <form ng-submit="addPost()" ng-show="isLoggedIn()" style="margin-top:30px;">
       <h3>Add a new post</h3>
       <div class="form-group">
         <input class="form-control" type="text" ng-model="title" placeholder="Title" />
@@ -51,18 +65,64 @@
     </div>
 
     <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
-      <span class="glyphicon glyphicon-thumbs-up" ng-click="upvote(comment)"></span>
-      <span class="glyphicon glyphicon-thumbs-down" ng-click="downvote(comment)"></span>
+      <span class="glyphicon glyphicon-thumbs-up" ng-click="upvoteComment(comment)"></span>
+      <span class="glyphicon glyphicon-thumbs-down" ng-click="downvoteComment(comment)"></span>
       {{ comment.upvotes }} - by {{ comment.author }}
       <p>{{ comment.body }}</p>
     </div>
 
-    <form ng-submit="addComment()" style="margin-top:30px;">
+    <div ng-hide="isLoggedIn()">
+      <h3><a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to start posting.</h3>
+    </div>
+
+    <form ng-submit="addComment()" ng-show="isLoggedIn()" style="margin-top:30px;">
       <h3>Add a new comment</h3>
       <div class="form-group">
         <input class="form-control" type="text" placeholder="Comment" ng-model="body" />
       </div>
       <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+  </script>
+
+  <script type="text/ng-template" id="/register.html">
+    <div class="page-header">
+      <h1>Mean News</h1>
+    </div>
+
+    <div ng-show="error" class="alert alert-danger row">
+      <span>{{ error.message }}</span>
+    </div>
+
+    <form ng-submit="register()" style="margin-top:30px;">
+      <h3>Register</h3>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" ng-model="user.username" />
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" ng-model="user.password" />
+      </div>
+      <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+  </script>
+
+  <script type="text/ng-template" id="/login.html">
+    <div class="page-header">
+      <h1>Mean News</h1>
+    </div>
+
+    <div ng-show="error" class="alert alert-danger row">
+      <span>{{ error.message }}</span>
+    </div>
+
+    <form ng-submit="logIn()" style="margin-top:30px;">
+      <h3>Log In</h3>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Username" ng-model="user.username" />
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" ng-model="user.password" />
+      </div>
+      <button type="submit" class="btn btn-primary">Log In</button>
     </form>
   </script>
   </body>
