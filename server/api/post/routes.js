@@ -1,20 +1,21 @@
 var express = require('express');
 var router = express.Router();
 var controller = require('./controller');
+var auth = require('../user/auth').auth();
 
 router.param('post', controller.params);
 
 router.route('/')
   .get(controller.get)
-  .post(controller.post);
+  .post(auth, controller.post);
 
 router.route('/:post')
   .get(controller.getOne)
-  .delete((controller.delete));
+  .delete(auth, controller.delete);
 
-router.put('/:post/upvote', controller.upvote);
-router.put('/:post/downvote', controller.downvote);
+router.put('/:post/upvote', auth, controller.upvote);
+router.put('/:post/downvote', auth, controller.downvote);
 
-router.use('/posts/:post/comments', require('../comment/routes'));
+router.use('/:post/comments', require('../comment/routes'));
 
 module.exports = router;
