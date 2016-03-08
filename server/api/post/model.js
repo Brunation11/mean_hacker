@@ -12,6 +12,11 @@ var PostSchema = new Schema({
     type: Number,
     default: 0,
   },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   comments: [
     {
       type: Schema.Types.ObjectId,
