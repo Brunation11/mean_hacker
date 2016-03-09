@@ -150,18 +150,18 @@ app.factory('posts', ['$http', 'auth', function($http, auth) {
   };
 
   o.createComment = function(id, comment) {
-    return $http.post('/posts/' + id + '/comments', comment);
+    return $http.post('/posts/' + id + '/comments', comment, {headers: {Authorization: 'Bearer ' + auth.getToken()}});
   };
 
   o.upvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
+    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', {headers: {Authorization: 'Bearer ' + auth.getToken()}})
       .then(function(res) {
         comment.upvotes++;
       });
   };
 
   o.downvoteComment = function(post, comment) {
-    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote')
+    return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/downvote', {headers: {Authorization: 'Bearer ' + auth.getToken()}})
       .then(function(res) {
         comment.upvotes--;
       });
@@ -213,7 +213,6 @@ app.controller('PostsCtrl', ['$scope', 'posts', 'post', 'auth', function($scope,
     if($scope.body && $scope.body !== '') {
       posts.createComment(post._id, {
         body: $scope.body,
-        author: 'user'
       })
       .success(function(comment) {
         $scope.post.comments.push(comment);

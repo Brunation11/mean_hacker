@@ -3,7 +3,7 @@ var _ = require('lodash');
 
 exports.params = function(req, res, next, id) {
   PostModel.findById(id)
-    .populate('author comments')
+    .populate('comments')
     .exec(function(err, post) {
       if (err) {
         next(err);
@@ -18,7 +18,7 @@ exports.params = function(req, res, next, id) {
 
 exports.get = function(req, res, next) {
   PostModel.find({})
-    .populate('author comments')
+    .populate('comments')
     .exec(function(err, posts) {
       if (err) {
         next(err);
@@ -30,7 +30,7 @@ exports.get = function(req, res, next) {
 
 exports.post = function(req, res, next) {
   var post = new PostModel(req.body);
-  post.author = req.payload._id;
+  post.author = req.payload.username;
   post.save(function(err, post) {
     if (err) {
       next(err);
