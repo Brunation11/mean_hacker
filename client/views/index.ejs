@@ -34,7 +34,7 @@
       <span class="glyphicon glyphicon-thumbs-down" ng-click="downvotePost(post)"></span>
       {{ post.upvotes }}
       <a ng-show="post.link" href={{ post.link }}>{{ post.title }}</a>
-      <span ng-show="post.author">Posted by <a>{{ post.author.username }}</a></span>
+      <span ng-show="post.author">Posted by <a>{{ post.author }}</a></span>
       <span ng-hide="post.link">{{ post.title }}</span>
       <a href="#/posts/{{ post._id }}">Comments</a>
       <button ng-click="removePost(post)" class="btn btn-primary">Delete</button>
