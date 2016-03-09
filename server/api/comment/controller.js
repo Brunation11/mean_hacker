@@ -17,7 +17,7 @@ exports.params = function(req, res, next, id) {
 
 exports.post = function(req, res, next) {
   var comment = new CommentModel(req.body);
-  comment.author = req.payload._id;
+  comment.author = req.payload.username;
   comment.save(function(err, comment) {
     if (err) {
       next(err);
