@@ -1,0 +1,21 @@
+.nav {
+  margin: .5rem 0 0 0;
+  background-color: #F46100;
+  height: 1.5rem;
+  padding: .2rem .5rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #000;
+  font-size: .9rem
+}
+
+.logo {
+  font-weight: 700;
+}
+
+.content {
+  background: #F6F6EF;
+  padding: .5rem;
+}
