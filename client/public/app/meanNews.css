@@ -18,4 +18,22 @@
 .content {
   background: #F6F6EF;
   padding: .5rem;
+  margin: 0;
+}
+
+.post-list {
+  margin: 0;
+  padding: 0 1.2rem;
+}
+
+.post-list-title {
+  color: #000;
+}
+
+.post-list-content {
+  color: #828282;
+}
+
+.sub-content {
+  font-size: .7rem;
 }
