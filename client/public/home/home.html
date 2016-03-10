@@ -1,0 +1,10 @@
+<div ng-repeat="post in posts | orderBy:'-upvotes'">
+  <span class="glyphicon glyphicon-thumbs-up" ng-click="upvotePost(post)"></span>
+  <span class="glyphicon glyphicon-thumbs-down" ng-click="downvotePost(post)"></span>
+  {{ post.upvotes }}
+  <a ng-show="post.link" href={{ post.link }}>{{ post.title }}</a>
+  <span ng-show="post.author">Posted by <a>{{ post.author }}</a></span>
+  <span ng-hide="post.link">{{ post.title }}</span>
+  <a href="#/posts/{{ post._id }}">Comments</a>
+  <button ng-show="isLoggedIn()" ng-click="removePost(post)" class="btn btn-primary">Delete</button>
+</div>
