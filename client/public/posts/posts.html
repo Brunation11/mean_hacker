@@ -1,26 +1,27 @@
-<div class="page-header">
-  <h3>
-    <a ng-show="post.link" href="{{ post.link }}">{{ post.title }}</a>
-    <span ng-hide="post.link">{{ post.title }}</span>
-  </h3>
-</div>
+<span>
+  <button class="btn-discreet" ng-click="upvotePost(post)">+</button>
+  <button class="btn-discreet" ng-click="downvotePost(post)">-</button>
+  <span class="post-list-title" ng-show="post.link"><a href="{{ post.link }}">{{ post.title }}</a></span>
+  <span class="post-list-title" ng-hide="post.link">{{ post.title }}</span>
+</span>
+<br>
+<span class="sub-content">
+  {{ post.upvotes }} points by {{ post.author }} <a class="link post-list-content" href="#/posts/{{ post._id }}">| {{ post.comments.length }} Comments</a>
+  <button ng-show="isLoggedIn()" ng-click="removePost(post)" class="btn-discreet">Delete</button>
+</span>
 
-<div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
-  <span class="glyphicon glyphicon-thumbs-up" ng-click="upvoteComment(comment)"></span>
-  <span class="glyphicon glyphicon-thumbs-down" ng-click="downvoteComment(comment)"></span>
-  {{ comment.upvotes }} - by {{ comment.author }}
-  <span>{{ comment.body }}</span>
-  <button ng-show="isLoggedIn()" ng-click="removeComment(comment)" class="btn btn-primary">Delete</button>
-</div>
-
-<div ng-hide="isLoggedIn()">
-  <h3><a href="/#/login">Log In</a> or <a href="/#/register">Register</a> to start posting.</h3>
-</div>
-
-<form ng-submit="addComment()" ng-show="isLoggedIn()" style="margin-top:30px;">
-  <h3>Add a new comment</h3>
+<form ng-submit="addComment()" style="margin-top:30px;">
   <div class="form-group">
     <input class="form-control" type="text" placeholder="Comment" ng-model="body" />
   </div>
   <button type="submit" class="btn btn-primary">Post</button>
 </form>
+
+<div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+  <button class="btn-discreet" ng-click="upvoteComment(comment)">+</button>
+  <button class="btn-discreet" ng-click="downvoteComment(comment)">-</button>
+  {{ comment.author }}
+  <span>{{ comment.body }}</span>
+  <button ng-show="isLoggedIn()" ng-click="removeComment(comment)" class="btn-discreet">Delete</button>
+</div>
+
