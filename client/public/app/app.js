@@ -5,7 +5,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     .state('home', {
       url: '/home',
       templateUrl: '../home/home.html',
-      controller: 'MainCtrl',
+      controller: 'PostsCtrl',
       resolve: {
         postPromise: ['posts', function(posts) {
           return posts.getAllPosts();
@@ -16,7 +16,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
     .state('posts', {
       url: '/posts/{id}',
       templateUrl: '../posts/posts.html',
-      controller: 'PostsCtrl',
+      controller: 'PostCtrl',
       resolve: {
         post: ['$stateParams', 'posts', function($stateParams, posts) {
           return posts.getOnePost($stateParams.id);
@@ -24,20 +24,20 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $ur
       }
     })
 
-    .state('login', {
-      url: '/login',
-      templateUrl: '../auth/login.html',
-      controller: 'AuthCtrl',
+    .state('submitPost', {
+      url: '/posts',
+      templateUrl: '../posts/submit.html',
+      controller: 'PostsCtrl',
       onEnter: ['$state', 'auth', function($state, auth) {
-        if (auth.isLoggedIn()) {
-          $state.go('home');
+        if(!auth.isLoggedIn()) {
+          $state.go('login');
         }
       }]
     })
 
-    .state('register', {
-      url: '/register',
-      templateUrl: '../auth/register.html',
+    .state('login', {
+      url: '/login',
+      templateUrl: '../auth/login.html',
       controller: 'AuthCtrl',
       onEnter: ['$state', 'auth', function($state, auth) {
         if (auth.isLoggedIn()) {
