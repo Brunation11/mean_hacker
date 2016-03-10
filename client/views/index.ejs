@@ -11,9 +11,9 @@
     <script src="/app/navCtrl.js"></script>
     <script src="/auth/authService.js"></script>
     <script src="/auth/authCtrl.js"></script>
-    <script src="/home/mainCtrl.js"></script>
+    <script src="/home/postsCtrl.js"></script>
     <script src="/posts/postsService.js"></script>
-    <script src="/posts/postsCtrl.js"></script>
+    <script src="/posts/postCtrl.js"></script>
   </head>
   <body>
     <div class="col-10 col-offset-1">
@@ -23,7 +23,7 @@
           <div ng-controller="NavCtrl">
             <div class="col-6">
               <a class="logo link" href="/#/home">Mean News</a>
-              <a href=""> new |</a> <a ng-show="isLoggedIn()" href=""> threads |</a> <a href=""> comments |</a> <a href=""> show |</a> <a href=""> ask |</a> <a href=""> jobs |</a> <a href=""> submit </a>
+              <a href=""> new |</a> <a ng-show="isLoggedIn()" href=""> threads |</a> <a href=""> comments |</a> <a href=""> show |</a> <a href=""> ask |</a> <a href=""> jobs |</a> <a href="/#/posts"> submit </a>
             </div>
             <div class="col-6 pull-right">
               <a ng-show="isLoggedIn()">{{ currentUser() }}</a>
