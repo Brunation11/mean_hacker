@@ -34,6 +34,16 @@ exports.post = function(req, res, next) {
   });
 };
 
+exports.delete = function(req, res, next) {
+  req.comment.remove(function(err, comment) {
+    if (err) {
+      next(err);
+    } else {
+      res.json(comment);
+    }
+  });
+};
+
 exports.upvote = function(req, res, next) {
   req.comment.upvote(function(err, comment) {
     if (err) {
