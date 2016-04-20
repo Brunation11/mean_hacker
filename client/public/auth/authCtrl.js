@@ -1,9 +1,12 @@
 var app = angular.module('meanNews');
 
 app.controller('AuthCtrl', ['$scope', '$state', 'auth', function($scope, $state, auth) {
-  $scope.user = {};
+
+  $scope.loginUser = {};
+  $scope.registerUser = {};
+
   $scope.register = function() {
-    auth.register($scope.user)
+    auth.register($scope.registerUser)
       .then(function(err) {
         if (err) {
           $scope.error = err;
@@ -14,7 +17,7 @@ app.controller('AuthCtrl', ['$scope', '$state', 'auth', function($scope, $state,
   };
 
   $scope.logIn = function() {
-    auth.logIn($scope.user)
+    auth.logIn($scope.loginUser)
       .then(function(err) {
         if (err) {
           $scope.error = err;

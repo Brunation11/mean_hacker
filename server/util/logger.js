@@ -19,7 +19,7 @@ var logger = {
           return arg.cyan;
         }
       });
-    console.log.apply(console, args);
+    consoleLog.apply(console, args);
   },
 
   error: function() {
@@ -30,7 +30,7 @@ var logger = {
         var log = name.yellow + ' ' + arg.red;
         return log;
       });
-    console.log.apply(console, args);
+    consoleLog.apply(console, args);
   }
 
 };
